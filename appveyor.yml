@@ -1,0 +1,10 @@
+# 29/10/2017
+version: '{branch}-{build}'
+image: Visual Studio 2017
+configuration: Debug
+
+before_build:
+  - cmd: nuget restore
+build:
+  - project: UniCircleTools.sln
+  - verbodity: minimal

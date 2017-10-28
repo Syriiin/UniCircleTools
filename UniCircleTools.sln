@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniCircleTools", "UniCircleTools\UniCircleTools.csproj", "{76929C4A-F81A-4867-978E-43B8D36739E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniCircle", "UniCircle\UniCircle.csproj", "{E6555728-2F9D-4A3E-9B98-D5116B36A809}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{76929C4A-F81A-4867-978E-43B8D36739E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76929C4A-F81A-4867-978E-43B8D36739E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76929C4A-F81A-4867-978E-43B8D36739E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6555728-2F9D-4A3E-9B98-D5116B36A809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6555728-2F9D-4A3E-9B98-D5116B36A809}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6555728-2F9D-4A3E-9B98-D5116B36A809}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6555728-2F9D-4A3E-9B98-D5116B36A809}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
