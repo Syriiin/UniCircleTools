@@ -6,5 +6,5 @@ configuration: Debug
 before_build:
   - cmd: nuget restore
 build:
-  - project: UniCircleTools.sln
-  - verbodity: minimal
+  project: UniCircleTools.sln
+  verbosity: minimal
