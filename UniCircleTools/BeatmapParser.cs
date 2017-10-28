@@ -5,7 +5,7 @@ using System.IO;
 
 namespace UniCircleTools
 {
-    public static class BeatmapParser
+    internal static class BeatmapParser
     {
         // Parser for standard .osu beatmap files
         // 
@@ -45,20 +45,20 @@ namespace UniCircleTools
         // ----------------------- Changes ------------------------------------
         //
         //
-        // - v5 added [Colours] section (irrelevent)
-        // - v6 added [Editor] section (irrelevent)
+        // - v5 added [Colours] section
+        // - v6 added [Editor] section
         // 
         // - General
-        //  - v4 added AudioLeadIn, EditorBookmarks (irrelevent)
-        //  - v5 removed AudioHash (irrelevent)
+        //  - v4 added AudioLeadIn, EditorBookmarks
+        //  - v5 removed AudioHash
         //  - v5 added Countdown, StackLeniency, Mode, LetterboxInBreaks
-        //  - v6 removed EditorBookmarks (irrelevent)
-        //  - v7 added SkinPreference (irrelevent)
-        //  - v8 removed SkinPreference (irrelevent)
-        //  - v12 added WidescreenStoryboard (irrelevent)
+        //  - v6 removed EditorBookmarks
+        //  - v7 added SkinPreference
+        //  - v8 removed SkinPreference
+        //  - v12 added WidescreenStoryboard
         // 
         // - Metadata
-        //  - v5 added Source and Tags (irrelevent)
+        //  - v5 added Source and Tags
         //  - v10 added TitleUnicode, ArtistUnicode, BeatmapID and BeatmapSetID (largly irrelevent)
         // 
         // - Difficulty
@@ -99,8 +99,6 @@ namespace UniCircleTools
         //   converting a v3 to v14 yields the same slider syntax even in the v14 format
         //   so that means that edgeHitsounds, edgeAdditions, and addition may be missing from any version
         //   
-        //   thats one headache out of the way, or i guess one created
-        //   
         //   Perfect sliders always have 2 and only 2 curve points (1st is x,y)
         //      128,96,6689,6,0,P|288:64|384:160,1,280
         //   Bezier sliders have 3 or more curve points (1 or more in old maps)
@@ -110,13 +108,11 @@ namespace UniCircleTools
         //   Catmull sliders have 1 or more curve points
         //      96,96,3588,2,0,C|96:96|224:96|352:320,1,420
         //
-        //   The first curve point in sliders from v3 and v4 are the starting point and be ignored
+        //   The first curve point in sliders from v3 and v4 are a duplicate of the starting point and should be ignored
         //
         //
-        //   
         //  - Spinners
         //          x   y   time    type    hitSound    endTime     addition (0:0:0:0:)
-        //   
         //  v3:     256 192 9742    12      0           12050
         //  v10:    256 192 46355   12      2           49450       0:0:0
         //  v12+:   256 192 57362   12      2           60219       1:2:0:0:
@@ -128,7 +124,7 @@ namespace UniCircleTools
         /// </summary>
         /// <param name="beatmapPath">File path of beatmap to parse</param>
         /// <param name="beatmap">Beatmap object to parse into</param>
-        public static void Parse(string beatmapPath, Beatmap beatmap)
+        internal static void Parse(string beatmapPath, Beatmap beatmap)
         {
             FileInfo fileInfo = new FileInfo(beatmapPath);
             if (!fileInfo.Exists || fileInfo.Length == 0)
@@ -279,10 +275,12 @@ namespace UniCircleTools
                 return null;
             }
 
-            TimingPoint timingPoint = new TimingPoint();
+            TimingPoint timingPoint = new TimingPoint
+            {
 
-            // Offset is unchanged across versions
-            timingPoint.Offset = Double.Parse(parts[0]);
+                // Offset is unchanged across versions
+                Offset = Double.Parse(parts[0])
+            };
 
             // Prior to v4, beats per measure was always 4
             if (formatVersion <= 3)
@@ -394,11 +392,12 @@ namespace UniCircleTools
         // Format: x,y,time,type,hitSound,addition
         private static HitCircle ParseHitCircle(string[] parts)
         {
-            HitCircle circle = new HitCircle();
-
-            circle.X = Int32.Parse(parts[0]);
-            circle.Y = Int32.Parse(parts[1]);
-            circle.Time = Int32.Parse(parts[2]);
+            HitCircle circle = new HitCircle
+            {
+                X = Int32.Parse(parts[0]),
+                Y = Int32.Parse(parts[1]),
+                Time = Int32.Parse(parts[2])
+            };
 
             return circle;
         }
@@ -406,13 +405,14 @@ namespace UniCircleTools
         // Format: x,y,time,type,hitSound,sliderType|curvePoints,repeat,pixelLength,edgeHitsounds,edgeAdditions,addition
         private static Slider ParseSlider(string[] parts, int formatVersion)
         {
-            Slider slider = new Slider();
-
-            slider.X = Int32.Parse(parts[0]);
-            slider.Y = Int32.Parse(parts[1]);
-            slider.Time = Int32.Parse(parts[2]);
-            slider.Repeat = Int32.Parse(parts[6]);
-            slider.PixelLength = Double.Parse(parts[7]);
+            Slider slider = new Slider
+            {
+                X = Int32.Parse(parts[0]),
+                Y = Int32.Parse(parts[1]),
+                Time = Int32.Parse(parts[2]),
+                Repeat = Int32.Parse(parts[6]),
+                PixelLength = Double.Parse(parts[7])
+            };
 
             string[] sliderShapeParts = parts[5].Split('|');
             string sliderType = sliderShapeParts[0];
@@ -468,12 +468,13 @@ namespace UniCircleTools
         // Format: x,y,time,type,hitSound,endTime,addition
         private static Spinner ParseSpinner(string[] parts, int formatVersion)
         {
-            Spinner spinner = new Spinner();
-
-            spinner.X = Int32.Parse(parts[0]);
-            spinner.Y = Int32.Parse(parts[1]);
-            spinner.Time = Int32.Parse(parts[2]);
-            spinner.EndTime = Int32.Parse(parts[5]);
+            Spinner spinner = new Spinner
+            {
+                X = Int32.Parse(parts[0]),
+                Y = Int32.Parse(parts[1]),
+                Time = Int32.Parse(parts[2]),
+                EndTime = Int32.Parse(parts[5])
+            };
 
             if (formatVersion <= 4)
             {

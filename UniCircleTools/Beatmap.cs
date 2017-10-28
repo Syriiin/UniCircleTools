@@ -10,10 +10,8 @@ namespace UniCircleTools
         private int _formatVersion;
         private Mode _mode;
         private float _stackLeniency;
-        // stack leniency allows notes hitobjects of identical x,y
+        // stack leniency allows notes hitobjects of close x,y
         //  to have slightly different playable position.
-        //  perhaps this should be taken into account for calculations. 
-        // more research required for direction, etc.
 
         public int FormatVersion { get => _formatVersion; internal set => _formatVersion = value; }
         public Mode Mode { get => _mode; internal set => _mode = value; }
@@ -62,13 +60,10 @@ namespace UniCircleTools
         /// <summary>
         ///     Construct empty Beatmap object or parse from given beatmap path.
         /// </summary>
-        /// <param name="beatmapPath">Optional: Path to beatmap to parse</param>
-        public Beatmap(string beatmapPath = null)
+        /// <param name="beatmapPath">Path to beatmap to parse</param>
+        public Beatmap(string beatmapPath)
         {
-            if (beatmapPath != null)
-            {
-                BeatmapParser.Parse(beatmapPath, this);
-            }
+            BeatmapParser.Parse(beatmapPath, this);
         }
     }
 }

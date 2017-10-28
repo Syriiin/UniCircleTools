@@ -7,14 +7,14 @@ using SharpCompress.Compressors.LZMA;
 
 namespace UniCircleTools
 {
-    public static class ReplayParser
+    internal static class ReplayParser
     {
         /// <summary>
         ///     Parse replay file into passed replay object.
         /// </summary>
         /// <param name="replayPath">File path of replay to parse</param>
         /// <param name="replay">Beatmap object to parse into</param>
-        public static void Parse(string replayPath, Replay replay)
+        internal static void Parse(string replayPath, Replay replay)
         {
             FileInfo fileInfo = new FileInfo(replayPath);
             if (!fileInfo.Exists || fileInfo.Length == 0)

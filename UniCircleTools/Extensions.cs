@@ -5,7 +5,7 @@ using System.IO;
 
 namespace UniCircleTools
 {
-    public static class Extensions
+    internal static class Extensions
     {
         public static string ReadLineTrim(this StreamReader reader)
         {

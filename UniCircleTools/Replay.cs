@@ -86,13 +86,10 @@ namespace UniCircleTools
         /// <summary>
         ///     Construct empty Replay object or parse from given replay path.
         /// </summary>
-        /// <param name="replayPath"></param>
-        public Replay(string replayPath = null)
+        /// <param name="replayPath">Path to replay to parse</param>
+        public Replay(string replayPath)
         {
-            if (replayPath != null)
-            {
-                ReplayParser.Parse(replayPath, this);
-            }
+            ReplayParser.Parse(replayPath, this);
         }
     }
 }
