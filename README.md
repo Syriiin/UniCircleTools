@@ -1,4 +1,4 @@
 # UniCircleTools
 Collection of tools for working with osu! related files
 
-Creating for university project purposes but will likely extent afterwards
+Creating for university project purposes but will likely extend afterwards
