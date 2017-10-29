@@ -257,6 +257,10 @@ namespace UniCircleTools
                 if (timingPoint != null)
                 {
                     beatmap.TimingPoints.Add(timingPoint);
+                    if (!timingPoint.Inherited)
+                    {
+                        lastMsPerBeat = timingPoint.MillisecondsPerBeat;
+                    }
                 }
 
                 if ((char)reader.Peek() == '[')   // Break KV read at next section tag
@@ -312,7 +316,6 @@ namespace UniCircleTools
             {
                 timingPoint.MillisecondsPerBeat = Double.Parse(parts[1]);
                 timingPoint.SliderVelocity = 1; // default sv is 1x
-                lastMsPerBeat = timingPoint.MillisecondsPerBeat;
             }
 
             if (formatVersion <= 4)
