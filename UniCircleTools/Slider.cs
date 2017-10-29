@@ -18,13 +18,13 @@ namespace UniCircleTools
         Red
     }
 
-    struct CurvePoint
+    public struct CurvePoint
     {
         public int x, y;
         public CurvePointType type;
     }
 
-    class Slider : HitObject
+    public class Slider : HitObject
     {
         private SliderType _sliderType;
         private List<CurvePoint> _curvePoints = new List<CurvePoint>();

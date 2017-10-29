@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UniCircleTools
 {
-    class HitCircle : HitObject
+    public class HitCircle : HitObject
     {
         /// <summary>
         ///     Construct empty HitCircle object

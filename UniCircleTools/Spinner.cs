@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UniCircleTools
 {
-    class Spinner : HitObject
+    public class Spinner : HitObject
     {
         private int _endTime;
 
