@@ -93,13 +93,30 @@ namespace UniCircleTools
                 {
                     continue;
                 }
-                frameTime += timeDiff;
+
+                if (replay.Frames.Count != 0)   // Sometimes the first frame will have a really high number instead of 0, so lets just skip it
+                {
+                    frameTime += timeDiff;
+                }
 
                 ReplayFrame frame;
                 frame.time = frameTime;
                 frame.x = Single.Parse(frameData[1]);
                 frame.y = Single.Parse(frameData[2]);
                 frame.keys = (Keys)Int16.Parse(frameData[3]);
+
+                // easier to look at than `for bit in mask, if bit > last bit: keydown = true`
+                if ((lastKeys & Keys.K1) < (frame.keys & Keys.K1) ||
+                    (lastKeys & Keys.K2) < (frame.keys & Keys.K2) ||
+                    (lastKeys & Keys.M1) < (frame.keys & Keys.M1) ||
+                    (lastKeys & Keys.M2) < (frame.keys & Keys.M2))
+                {
+                    frame.keyDown = true;
+                }
+                else
+                {
+                    frame.keyDown = false;
+                }
 
                 if (lastKeys != frame.keys)
                 {

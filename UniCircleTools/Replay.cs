@@ -26,6 +26,7 @@ namespace UniCircleTools
         public float x;
         public float y;
         public Keys keys;
+        public bool keyDown;
     }
 
     public class Replay
