@@ -78,5 +78,102 @@ namespace UniCircleTools
                 hitObject.ApplyDifficultySettings(difficulty);
             }
         }
+
+        /// <summary>
+        ///     Simulate play given a Replay
+        /// </summary>
+        /// <param name="replay">Replay to simulate</param>
+        /// <returns>Score object holding simulation results</returns>
+        public Score SimulatePlay(Replay replay)
+        {
+            Score score = new Score();
+
+            int currentHitObjectIdx = 0;
+
+            HitObject currentHitObject;
+            List<Slider> activeSliders = new List<Slider>();    // Possible to have multiple overlapping sliders/spinners in unrankable maps
+            List<Spinner> activeSpinners = new List<Spinner>();
+
+            // loop frames
+            foreach (ReplayFrame frame in replay.Frames)
+            {
+                currentHitObject = HitObjects[currentHitObjectIdx];
+                if (frame.time > currentHitObject.Time + currentHitObject.HitWindowFor(HitResult.Miss))
+                {
+                    score.CountMiss++;
+                    currentHitObjectIdx++;
+                    if (currentHitObjectIdx == HitObjects.Count)
+                    {
+                        break;
+                    }
+                    currentHitObject = HitObjects[currentHitObjectIdx];
+                }
+
+                // if key down, process hit
+                // then process sliders and spinners
+                // process interactions with relevent hitobjects
+                if (frame.keyDown)
+                {
+                    Console.WriteLine("KeyDown {0}", frame.keys);
+                    // Check for hit
+                    if (frame.time > currentHitObject.Time - currentHitObject.ApproachTime && currentHitObject.PointInCircle(frame.x, frame.y))
+                    {
+                        HitResult hitRes = currentHitObject.GetResultForOffset(frame.time);
+                        switch (hitRes)
+                        {
+                            case HitResult.Hit300:
+                                score.Count300++;
+                                currentHitObjectIdx++;
+                                break;
+                            case HitResult.Hit100:
+                                score.Count100++;
+                                currentHitObjectIdx++;
+                                break;
+                            case HitResult.Hit50:
+                                score.Count50++;
+                                currentHitObjectIdx++;
+                                break;
+                            case HitResult.Miss:
+                                score.CountMiss++;
+                                currentHitObjectIdx++;
+                                break;
+                            case HitResult.None:
+                                break;
+                            default:
+                                break;
+                        }
+                        Console.WriteLine("Ping {0}", hitRes);
+                        continue;   // We had an interaction with the current active object, thus none others can be hit
+                    }
+
+                    // check for notelock
+                    for (int i = currentHitObjectIdx + 1; i < HitObjects.Count; i++)
+                    {
+                        if (frame.time > HitObjects[i].Time - HitObjects[i].ApproachTime)
+                        {
+                            // This object hasnt appeared yet
+                            break;
+                        }
+                        if (HitObjects[i].PointInCircle(frame.x, frame.y))
+                        {
+                            // Notelocked.
+                            break;
+                        }
+                    }
+                }
+
+                foreach (Slider slider in activeSliders)
+                {
+                    // Process slider (body aim, holding for ticks, etc)
+                }
+
+                foreach (Spinner spinner in activeSpinners)
+                {
+                    // Process spinner movement
+                }
+            }
+
+            return score;
+        }
     }
 }
