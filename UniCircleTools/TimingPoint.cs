@@ -6,7 +6,7 @@ namespace UniCircleTools
 {
     public class TimingPoint
     {
-        private double _offset;     // documentation claims to be int, but float is possible (see charles445 smile of split)
+        private double _offset;     // documentation claims to be int, but double is possible (see charles445 smile of split)
         private double _msPerBeat;
         private int _beatsPerMeasure;
         private bool _inherited;
