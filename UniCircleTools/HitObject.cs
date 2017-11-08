@@ -10,6 +10,7 @@ namespace UniCircleTools
         private int _y;
         private int _time;
         private bool _newCombo;
+        private BeatmapDifficulty _difficulty;
 
         public int X { get => _x; internal set => _x = value; }
         public int Y { get => _y; internal set => _y = value; }
@@ -17,5 +18,14 @@ namespace UniCircleTools
         public bool NewCombo { get => _newCombo; internal set => _newCombo = value; }
 
         public HitObject() { }
+
+        /// <summary>
+        ///     Apply difficulty settings to a hitobject
+        /// </summary>
+        /// <param name="difficulty">Difficulty settings to apply</param>
+        public void ApplyDifficultySettings(BeatmapDifficulty difficulty)
+        {
+            _difficulty = difficulty;
+        }
     }
 }

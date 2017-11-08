@@ -4,6 +4,16 @@ using System.Text;
 
 namespace UniCircleTools
 {
+    public struct BeatmapDifficulty
+    {
+        public float HP;
+        public float CS;
+        public float OD;
+        public float AR;
+        public double SliderMultiplier;
+        public double SliderTickRate;
+    }
+
     public class Beatmap
     {
         // General
@@ -33,19 +43,9 @@ namespace UniCircleTools
         public string SetID { get => _setId; internal set => _setId = value; }
 
         // Difficulty
-        private float _hp;
-        private float _cs;
-        private float _od;
-        private float _ar;
-        private double _sliderMult;
-        private double _sliderTick;
+        private BeatmapDifficulty _difficulty;
 
-        public float HP { get => _hp; set => _hp = value; }
-        public float CS { get => _cs; set => _cs = value; }
-        public float OD { get => _od; set => _od = value; }
-        public float AR { get => _ar; set => _ar = value; }
-        public double SliderMultiplier { get => _sliderMult; internal set => _sliderMult = value; }
-        public double SliderTickRate { get => _sliderTick; internal set => _sliderTick = value; }
+        public BeatmapDifficulty Difficulty { get => _difficulty; internal set => _difficulty = value; }
 
         // TimingPoints
         private List<TimingPoint> _timingPoints = new List<TimingPoint>();
@@ -64,6 +64,19 @@ namespace UniCircleTools
         public Beatmap(string beatmapPath)
         {
             BeatmapParser.Parse(beatmapPath, this);
+        }
+
+        /// <summary>
+        ///     Applies difficulty settings to all hitobjects
+        /// </summary>
+        /// <param name="difficulty">Difficulty settings to apply</param>
+        public void ApplyDifficultySettings(BeatmapDifficulty difficulty)
+        {
+            _difficulty = difficulty;
+            foreach (HitObject hitObject in HitObjects)
+            {
+                hitObject.ApplyDifficultySettings(difficulty);
+            }
         }
     }
 }
