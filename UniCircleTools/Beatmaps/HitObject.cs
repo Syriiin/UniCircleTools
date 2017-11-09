@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UniCircleTools
+namespace UniCircleTools.Beatmaps
 {
     public enum HitResult
     {
@@ -84,7 +84,6 @@ namespace UniCircleTools
         public HitResult GetResultForOffset(float offset)
         {
             float hitError = Math.Abs(offset - Time);
-            Console.WriteLine("Hit error {0} {1} {2}", hitError, Time, offset);
             if (hitError < HitWindowFor(HitResult.Hit300))
             {
                 return HitResult.Hit300;

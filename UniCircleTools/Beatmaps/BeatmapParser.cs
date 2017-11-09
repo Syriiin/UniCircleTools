@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace UniCircleTools
+namespace UniCircleTools.Beatmaps
 {
     internal static class BeatmapParser
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UniCircleTools
+namespace UniCircleTools.Beatmaps
 {
     public class HitCircle : HitObject
     {

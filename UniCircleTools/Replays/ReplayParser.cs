@@ -5,7 +5,7 @@ using System.IO;
 
 using SharpCompress.Compressors.LZMA;
 
-namespace UniCircleTools
+namespace UniCircleTools.Replays
 {
     internal static class ReplayParser
     {
@@ -99,23 +99,39 @@ namespace UniCircleTools
                     frameTime += timeDiff;
                 }
 
-                ReplayFrame frame;
-                frame.time = frameTime;
-                frame.x = Single.Parse(frameData[1]);
-                frame.y = Single.Parse(frameData[2]);
-                frame.keys = (Keys)Int16.Parse(frameData[3]);
+                ReplayFrame frame = new ReplayFrame
+                {
+                    time = frameTime,
+                    x = Single.Parse(frameData[1]),
+                    y = Single.Parse(frameData[2]),
+                    keys = (Keys)Int16.Parse(frameData[3])
+                };
 
-                // easier to look at than `for bit in mask, if bit > last bit: keydown = true`
+                // if any key is pressed that wasnt pressed last frame
                 if ((lastKeys & Keys.K1) < (frame.keys & Keys.K1) ||
                     (lastKeys & Keys.K2) < (frame.keys & Keys.K2) ||
                     (lastKeys & Keys.M1) < (frame.keys & Keys.M1) ||
                     (lastKeys & Keys.M2) < (frame.keys & Keys.M2))
                 {
-                    frame.keyDown = true;
+                    frame.action = FrameAction.Click;
                 }
-                else
+
+                // if any key is pressed that was pressed last frame
+                if (((lastKeys & Keys.K1) == (frame.keys & Keys.K1) && (frame.keys & Keys.K1) > 0) ||
+                    ((lastKeys & Keys.K2) == (frame.keys & Keys.K2) && (frame.keys & Keys.K2) > 0) ||
+                    ((lastKeys & Keys.M1) == (frame.keys & Keys.M1) && (frame.keys & Keys.M1) > 0) ||
+                    ((lastKeys & Keys.M2) == (frame.keys & Keys.M2) && (frame.keys & Keys.M2) > 0))
                 {
-                    frame.keyDown = false;
+                    frame.action = FrameAction.Hold;
+                }
+
+                // if any key isnt pressed that was pressed last frame
+                if ((lastKeys & Keys.K1) > (frame.keys & Keys.K1) ||
+                    (lastKeys & Keys.K2) > (frame.keys & Keys.K2) ||
+                    (lastKeys & Keys.M1) > (frame.keys & Keys.M1) ||
+                    (lastKeys & Keys.M2) > (frame.keys & Keys.M2))
+                {
+                    frame.action = FrameAction.Release;
                 }
 
                 if (lastKeys != frame.keys)

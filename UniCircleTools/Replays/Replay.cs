@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UniCircleTools
+namespace UniCircleTools.Replays
 {
     [Flags]
     public enum Keys
@@ -12,6 +12,14 @@ namespace UniCircleTools
         M2 = 2,
         K1 = 4 | M1,    // Always set with M1
         K2 = 8 | M2     // Always set with M2
+    }
+
+    public enum FrameAction
+    {
+        None = 0,
+        Click,
+        Hold,
+        Release
     }
 
     public struct LifePoint
@@ -26,7 +34,7 @@ namespace UniCircleTools
         public float x;
         public float y;
         public Keys keys;
-        public bool keyDown;
+        public FrameAction action;  // TODO: perhaps split frame action into individual key actions
     }
 
     public class Replay
