@@ -133,6 +133,15 @@ namespace UniCircleTools
             }
 
             StreamReader reader = new StreamReader(beatmapPath);
+
+            // Calculate beatmap hash
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] hash = md5.ComputeHash(reader.BaseStream);
+                beatmap.Hash = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+            }
+
             ParseVersion(reader, beatmap);
             if (beatmap.FormatVersion < 3)
             {

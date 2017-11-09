@@ -18,12 +18,14 @@ namespace UniCircleTools
     {
         // General
         private int _formatVersion;
+        private string _hash;
         private Mode _mode;
         private float _stackLeniency;
         // stack leniency allows notes hitobjects of close x,y
         //  to have slightly different playable position.
 
         public int FormatVersion { get => _formatVersion; internal set => _formatVersion = value; }
+        public string Hash { get => _hash; internal set => _hash = value; }
         public Mode Mode { get => _mode; internal set => _mode = value; }
         public float StackLeniency { get => _stackLeniency; internal set => _stackLeniency = value; }
 
