@@ -3,6 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 
 using UniCircleTools;
+using UniCircleTools.Beatmaps;
 using UniCircleToolsTests.Resources;
 
 namespace UniCircleToolsTests
@@ -26,12 +27,12 @@ namespace UniCircleToolsTests
             Assert.AreEqual("654791", beatmap.BeatmapID);
             Assert.AreEqual("290683", beatmap.SetID);
 
-            Assert.AreEqual(6, beatmap.HP);
-            Assert.AreEqual(4, beatmap.CS);
-            Assert.AreEqual(7, beatmap.OD);
-            Assert.AreEqual(9, beatmap.AR);
-            Assert.AreEqual(1.6, beatmap.SliderMultiplier);
-            Assert.AreEqual(1.0, beatmap.SliderTickRate);
+            Assert.AreEqual(6, beatmap.Difficulty.HP);
+            Assert.AreEqual(4, beatmap.Difficulty.CS);
+            Assert.AreEqual(7, beatmap.Difficulty.OD);
+            Assert.AreEqual(9, beatmap.Difficulty.AR);
+            Assert.AreEqual(1.6, beatmap.Difficulty.SliderMultiplier);
+            Assert.AreEqual(1.0, beatmap.Difficulty.SliderTickRate);
 
             // Test Timing points
             TestTimingPoint(beatmap.TimingPoints.First(), 444, 365.853658536585, 4, false, 1.0);

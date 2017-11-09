@@ -3,6 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 
 using UniCircleTools;
+using UniCircleTools.Replays;
 using UniCircleToolsTests.Resources;
 
 namespace UniCircleToolsTests

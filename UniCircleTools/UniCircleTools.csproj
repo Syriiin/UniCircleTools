@@ -5,15 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Beatmaps\**" />
-    <Compile Remove="Replays\**" />
-    <EmbeddedResource Remove="Beatmaps\**" />
-    <EmbeddedResource Remove="Replays\**" />
-    <None Remove="Beatmaps\**" />
-    <None Remove="Replays\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="SharpCompress" Version="0.18.2" />
   </ItemGroup>
 

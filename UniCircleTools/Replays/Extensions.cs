@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace UniCircleTools
+namespace UniCircleTools.Replays
 {
     internal static class Extensions
     {
-        public static string ReadLineTrim(this StreamReader reader)
-        {
-            string line = reader.ReadLine();
-            return line?.Trim();
-        }
-
         public static string ReadNullString(this BinaryReader reader)
         {
             if (reader.ReadByte() == 0x00)

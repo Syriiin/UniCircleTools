@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Security.Cryptography;
 
-namespace UniCircleTools
+namespace UniCircleTools.Beatmaps
 {
     internal static class BeatmapParser
     {
@@ -133,6 +134,15 @@ namespace UniCircleTools
             }
 
             StreamReader reader = new StreamReader(beatmapPath);
+
+            // Calculate beatmap hash
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] hash = md5.ComputeHash(reader.BaseStream);
+                beatmap.Hash = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+            }
+
             ParseVersion(reader, beatmap);
             if (beatmap.FormatVersion < 3)
             {
@@ -235,12 +245,16 @@ namespace UniCircleTools
         {
             Dictionary<string, string> kv = ParseKeyValues(reader);
 
-            beatmap.HP = Single.Parse(kv["HPDrainRate"]);
-            beatmap.CS = Single.Parse(kv["CircleSize"]);
-            beatmap.OD = Single.Parse(kv["OverallDifficulty"]);
-            beatmap.AR = kv.ContainsKey("ApproachRate") ? Single.Parse(kv["ApproachRate"]) : beatmap.OD;
-            beatmap.SliderMultiplier = Double.Parse(kv["SliderMultiplier"]);
-            beatmap.SliderTickRate = Double.Parse(kv["SliderTickRate"]);
+            BeatmapDifficulty difficulty;
+            
+            difficulty.HP = Single.Parse(kv["HPDrainRate"]);
+            difficulty.CS = Single.Parse(kv["CircleSize"]);
+            difficulty.OD = Single.Parse(kv["OverallDifficulty"]);
+            difficulty.AR = kv.ContainsKey("ApproachRate") ? Single.Parse(kv["ApproachRate"]) : difficulty.OD;
+            difficulty.SliderMultiplier = Double.Parse(kv["SliderMultiplier"]);
+            difficulty.SliderTickRate = Double.Parse(kv["SliderTickRate"]);
+
+            beatmap.Difficulty = difficulty;
         }
 
         private static void ParseTimingPoints(StreamReader reader, Beatmap beatmap)
@@ -338,6 +352,7 @@ namespace UniCircleTools
 
                 if (hitObject != null)
                 {
+                    hitObject.ApplyDifficultySettings(beatmap.Difficulty);
                     beatmap.HitObjects.Add(hitObject);
                 }
 
