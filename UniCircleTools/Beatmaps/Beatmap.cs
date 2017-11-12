@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
+using UniCircleTools.Replays;
+using UniCircleTools.Simulations;
+
 namespace UniCircleTools.Beatmaps
 {
     public struct BeatmapDifficulty
@@ -79,6 +82,37 @@ namespace UniCircleTools.Beatmaps
             {
                 hitObject.ApplyDifficultySettings(difficulty);
             }
+        }
+
+        /// <summary>
+        ///     Runs simulation on passed Replay
+        /// </summary>
+        /// <param name="replay">Replay to simulate</param>
+        /// <returns>Simulation object containing result of simulation</returns>
+        public Simulator RunSimulation(Replay replay)
+        {
+            Simulator simulator = new Simulator();
+            simulator.SimulateReplay(this, replay);
+            return simulator;
+        }
+
+        /// <summary>
+        ///     Get timing point active at a given offset
+        /// </summary>
+        /// <param name="offset">Offset timing point controls</param>
+        /// <returns>Timing point active at given offset</returns>
+        public TimingPoint GetTimingPointForOffset(double offset)
+        {
+            TimingPoint timingPoint;
+            for (int i = _timingPoints.Count - 1; i >= 0; i--)
+            {
+                timingPoint = _timingPoints[i];
+                if (timingPoint.Offset < offset)
+                {
+                    return timingPoint;
+                }
+            }
+            return null;
         }
     }
 }

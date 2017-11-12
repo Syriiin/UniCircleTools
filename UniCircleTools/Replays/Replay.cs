@@ -100,5 +100,24 @@ namespace UniCircleTools.Replays
         {
             ReplayParser.Parse(replayPath, this);
         }
+
+        /// <summary>
+        ///     Get Replay frame for a given offset
+        /// </summary>
+        /// <param name="offset">Offset to return for</param>
+        /// <returns>Replay frame active at given offset</returns>
+        public ReplayFrame GetFrameForOffset(double offset)
+        {
+            ReplayFrame replayFrame;
+            for (int i = _replayFrames.Count - 1; i >= 0; i--)
+            {
+                replayFrame = _replayFrames[i];
+                if (replayFrame.time < offset)
+                {
+                    return replayFrame;
+                }
+            }
+            return _replayFrames[0];    // This will never actually happen because the loop will always return a frame
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace UniCircleTools.Simulations
             Reset();
         }
 
-        public void Reset()
+        private void Reset()
         {
             // Reset simulation to blank state
             _beatmapHash = "";
@@ -62,6 +62,10 @@ namespace UniCircleTools.Simulations
                         NewCombo = hitObject.NewCombo,
                         Time = hitObject.Time + 1515
                     });
+                }
+                else if (hitObject is Spinner)
+                {
+                    Count300++;
                 }
             }
         }
