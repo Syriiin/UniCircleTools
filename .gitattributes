@@ -1,0 +1,2 @@
+# Don't convert line endings
+*.osu eol=crlf
