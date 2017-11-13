@@ -29,13 +29,6 @@ namespace UniCircleToolsTests
             Assert.AreEqual(0, simulator.Count100);
             Assert.AreEqual(0, simulator.Count50);
             Assert.AreEqual(0, simulator.CountMiss);
-
-            simulator.Reset();
-
-            Assert.AreEqual(0, simulator.Count300);
-            Assert.AreEqual(0, simulator.Count100);
-            Assert.AreEqual(0, simulator.Count50);
-            Assert.AreEqual(0, simulator.CountMiss);
         }
     }
 }
