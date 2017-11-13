@@ -159,7 +159,7 @@ namespace UniCircleTools.Simulations
             // Check beatmap hash
             if (replay.BeatmapHash != _beatmapHash)
             {
-                throw new Exception("Replay hash does not match beatmap");
+                throw new Exception($"Replay hash {replay.BeatmapHash} does not match beatmap {_beatmapHash}");
             }
 
             // Iterate through frames, processing each
