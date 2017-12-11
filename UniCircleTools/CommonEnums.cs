@@ -18,7 +18,7 @@ namespace UniCircleTools
         None = 0,
         NoFail = 1,
         Easy = 2,
-        NoVideo = 4,                // Not used anymore, but can be found on old plays like Mesita on b/78239
+        TouchDevice = 4,                // Used to be NoVideo
         Hidden = 8,
         HardRock = 16,
         SuddenDeath = 32,
