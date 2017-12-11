@@ -11,7 +11,8 @@ namespace UniCircleTools.Replays
         M1 = 1,
         M2 = 2,
         K1 = 4 | M1,    // Always set with M1
-        K2 = 8 | M2     // Always set with M2
+        K2 = 8 | M2,    // Always set with M2
+        Smoke = 16
     }
 
     public enum FrameAction
