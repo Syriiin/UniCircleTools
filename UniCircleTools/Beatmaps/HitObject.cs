@@ -21,11 +21,11 @@ namespace UniCircleTools.Beatmaps
         private bool _newCombo;
         private BeatmapDifficulty _difficulty;
 
-        public int X { get => _x; internal set => _x = value; }
-        public int Y { get => _y; internal set => _y = value; }
-        public int Time { get => _time; internal set => _time = value; }
-        public bool NewCombo { get => _newCombo; internal set => _newCombo = value; }
-        public BeatmapDifficulty Difficulty { get => _difficulty; internal set => _difficulty = value; }
+        public int X { get => _x; set => _x = value; }
+        public int Y { get => _y; set => _y = value; }
+        public int Time { get => _time; set => _time = value; }
+        public bool NewCombo { get => _newCombo; set => _newCombo = value; }
+        public BeatmapDifficulty Difficulty { get => _difficulty; set => _difficulty = value; }
 
         public double ApproachTime
         {

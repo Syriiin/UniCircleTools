@@ -32,11 +32,11 @@ namespace UniCircleTools.Beatmaps
         private double _pixelLength;
         private int _endTime;
 
-        public SliderType SliderType { get => _sliderType; internal set => _sliderType = value; }
+        public SliderType SliderType { get => _sliderType; set => _sliderType = value; }
         public List<CurvePoint> CurvePoints { get => _curvePoints; }
-        public int Repeat { get => _repeat; internal set => _repeat = value; }
-        public double PixelLength { get => _pixelLength; internal set => _pixelLength = value; }
-        public int EndTime { get => _endTime; internal set => _endTime = value; }
+        public int Repeat { get => _repeat; set => _repeat = value; }
+        public double PixelLength { get => _pixelLength; set => _pixelLength = value; }
+        public int EndTime { get => _endTime; set => _endTime = value; }
 
         /// <summary>
         ///     Construct empty Slider object

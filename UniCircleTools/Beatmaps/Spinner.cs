@@ -8,7 +8,7 @@ namespace UniCircleTools.Beatmaps
     {
         private int _endTime;
 
-        public int EndTime { get => _endTime; internal set => _endTime = value; }
+        public int EndTime { get => _endTime; set => _endTime = value; }
 
         /// <summary>
         ///     Construct empty Spinner object
